@@ -1,18 +1,19 @@
-;(function(global, $){
+;(function(global){
 
-    var FlatLib = function(classRoster, currentBeer, elevatorCode) {
-      return new FlatLib.init(classRoster, currentBeer, elevatorCode);
+// Preparing to create an object that will hold our functionality (actual object itself is created below)
+    var FlatLib = function(classRoster, currentBeer, currentSoda, elevatorCode) {
+      return new FlatLib.initialize(classRoster, currentBeer, currentSoda, elevatorCode);
     }
 
+// Adding methods to FlatLib's protoType for access later:
     FlatLib.prototype = {
 
       currentBeerOnTap: function(){
-        debugger;
         return `The current beer on tap is ${this.currentBeer}!`
       },
 
       currentSodaOnTap: function(){
-        return `The current soda on tap is ${this.soda}!`
+        return `The current soda on tap is ${this.currentSoda}!`
       },
 
       currentElevatorCode: function(){
@@ -30,22 +31,29 @@
           tempRoster.splice(personIndex1, 1);
           tempRoster.splice(personIndex2, 1);
 
+          tempRoster = tempRoster.filter(person => (person !== personIndex1))
+          tempRoster = tempRoster.filter(person => (person !== personIndex2))
+
           let pair = [selectedPerson1, selectedPerson2]
           return pair;
       }
 
     }
 
-    FlatLib.init = function(classRoster, currentBeer, elevatorCode){
-      var self = this;
-      self.classRoster = classRoster;
-      self.currentBeer = currentBeer;
-      self.elevatorCode = elevatorCode;
+// The actual object is created here:
+    FlatLib.initialize = function(classRoster, currentBeer, currentSoda, elevatorCode) {
+      this.classRoster = classRoster;
+      this.currentBeer = currentBeer;
+      this.currentSoda = currentSoda;
+      this.elevatorCode = elevatorCode;
     }
 
-    FlatLib.init.prototype = FlatLib.prototype;
+// Assigning FlatLib's prototype functionality to the initalize prototype for access later
+//This is what allows us to call <FlatLib instance>.method() when we want to access the library
+    FlatLib.initialize.prototype = FlatLib.prototype;
 
+// Attach our FlatLib to the global object
     global.FlatLib = FlatLib;
 
-
-}(window, jQuery));
+//passing in window object to act as global
+}(window));

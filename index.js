@@ -8,6 +8,4 @@ let currentSoda = "Root Beer"
 
 let elevatorCode = "12345"
 
-var test = FlatLib(classRoster, currentBeer, elevatorCode);
-
-debugger;
+var libraryExample = FlatLib(classRoster, currentBeer, currentSoda, elevatorCode);
